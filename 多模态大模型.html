@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>1&period; &#x6a21;&#x578b;&#x6f14;&#x8fdb;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="1-模型演进">1. 模型演进</h1>
+<h2 id="vit">ViT</h2>
+<p>ViT（Vision Transformer）是Google于2020年提出的一种纯基于Transformer架构的视觉模型。ViT首次将NLP中成功的Transformer理念引入到计算机视觉领域，通过将图片划分为patch（小块）并进行序列建模，ViT在大规模数据集下取得了超越传统卷积神经网络（CNN, 如ResNet）的表现。</p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/ViT.png" alt="ViT架构图">
+<strong>思想要点</strong>：</p>
+<ul>
+<li>Patch分割：将图片分割成固定大小的patch，每个patch展平成一维向量，patch大小为16*16，每个patch展平后为维度<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mn>2</mn></msup><mi>C</mi></mrow><annotation encoding="application/x-tex">P^2C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>。</li>
+<li>图像到序列（Transformer中hidden_size为1024）
+<ul>
+<li>线性投影：共享(768, 1024)的线性投影层，得到patch embedding。</li>
+<li>定义1024个卷积核，每个大小为16*16，步长为16，padding为0</li>
+</ul>
+</li>
+<li>位置编码：与patch embedding相加，用于提供顺序信息
+<ul>
+<li>1D：生成<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span>个可学习向量，维度1024</li>
+<li>2D：生成<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>N</mi></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{N}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1133em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9267em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span><span style="top:-2.8867em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1133em;"><span></span></span></span></span></span></span></span></span>个行向量和列向量，维度512</li>
+</ul>
+</li>
+<li>Transformer编码：将patch embedding序列送入多层Transformer Encoder进行建模。</li>
+<li>输出分类
+<ul>
+<li>分类头：在输入序列前加上一个可训练的class token（类似于BERT的[CLS]），用于汇集全图信息，经过输出后用于分类任务，送入MLP头，输出类别概率。</li>
+<li>所有token全局平均池化</li>
+</ul>
+</li>
+</ul>
+<p><strong>算法优缺点</strong></p>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>长距离patch间依赖建模更强（全局自注意力）。</li>
+<li>统一视觉和语言的表征方式，方便多模态融合。</li>
+<li>在计算效率上，训练同等精度的模型，Transformer比卷积神经网络更具优势。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>比传统CNN参数多，计算开销大。</li>
+<li>小样本场景下表现不佳，需大量数据训练。【百万/千万/亿】</li>
+</ul>
+</li>
+</ul>
+<p><strong>可能遇到的问题</strong></p>
+<ul>
+<li>为什么在计算效率上，训练同等精度的模型，Transformer比卷积神经网络更具优势？
+<ul>
+<li>Transformer自注意力机制高效建模长距离依赖，提高了信息表达能力，使同等精度下训练所需步骤更少，整体计算成本下降。</li>
+<li>自注意力支持序列级并行，与现代分布式训练高度契合，实现大模型训练的高效线性/超线性加速。</li>
+</ul>
+</li>
+<li>ViT对图像尺寸有什么要求？
+<ul>
+<li>必须能整除patch大小，通常输入图像尺寸设为224×224</li>
+<li>但位置编码需要与patch数量匹配，一般训练和推理建议保持和训练时一致的尺寸，否则可能出现位置编码不匹配的问题。</li>
+<li>在迁移学习或多尺度推理时，可以通过插值调整位置编码应对非标准输入【双线性插值：14<em>14</em>D -&gt; 24<em>24</em>D：<a href="https://zhuanlan.zhihu.com/p/454605908%E3%80%91">https://zhuanlan.zhihu.com/p/454605908】</a></li>
+</ul>
+</li>
+<li>混合模型？ResNet到特征图+Transformer
+<ul>
+<li>混合模型受限于前端CNN提取能力，易造成特征损失和优化瓶颈。</li>
+</ul>
+</li>
+<li>卷积操作的归纳偏置？
+<ul>
+<li>局部性和平移不变性</li>
+</ul>
+</li>
+<li>能够自监督来做？
+<ul>
+<li>对于一半的patch做标记，80%为可学习的[mask], 10%替换为其他patch embedding， 10%不变，预测像素值8<em>8</em>8，效果很好</li>
+<li>训练过程中每个batch的mask位置是动态随机生成的，而不是固定不变的。</li>
+<li>让模型对“未被改变的、被替换的和被mask的”各种输入都增强鲁棒性，而不只是只学会填补 [MASK]，也不会过分依赖输入与输出重合</li>
+<li>真实下游任务不会出现 [MASK]，这项设计让模型学会在不同场景下预测，提升迁移能力。</li>
+</ul>
+</li>
+</ul>
+<h2 id="clip">Clip</h2>
+<p><strong>CLIP</strong>（全称：Contrastive Language-Image Pre-training）是 OpenAI 于 2021 年提出的多模态模型，通过<strong>视觉（图像）和语言（文本）的大规模对比学习</strong>，使模型能够理解图文之间的语义对应关系，实现图像与文本的通用语义特征对齐。</p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/Clip.png" alt="Clip架构"></p>
+<p><strong>核心思想</strong></p>
+<ul>
+<li>CLIP包括<strong>两个编码器</strong>：
+<ul>
+<li>一个图像编码器（通常是ViT或ResNet）</li>
+<li>一个文本编码器（通常是Transformer）<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/clip_text.png" width="180" height="300"></li>
+</ul>
+</li>
+<li>训练时，每张图片对应一条描述文本，模型将图片和文字分别编码为向量，<strong>通过对比学习（Contrastive Learning）让同一组图片和文字特征更接近，不同组则更远</strong>。</li>
+<li>由于数据量足够大，图片编码器和文本编码器没有做预训练</li>
+<li>图片数据增强：随机裁剪</li>
+</ul>
+<p><strong>训练流程</strong></p>
+<ul>
+<li>采集规模巨大的图片-文本对（训练数据：4亿个图文对）</li>
+<li>图片输入视觉编码器，输出图像特征, 文字输入文本编码器，输出文本特征</li>
+<li>计算每个 batch 内所有图片和文字的相似度矩阵 batch_size:32768</li>
+<li>用对比损失（如 InfoNCE）促使正确的图片-文本对相似度最高</li>
+<li>逐步训练，使模型有能力理解和映射开放域的多样语义</li>
+<li>训练32个epoch</li>
+</ul>
+<pre><code class="language-python">I_e = l2_normalize(np.dot(I_f, W_i), axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 图片特征归一化</span>
+T_e = l2_normalize(np.dot(T_f, W_t), axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 文本特征归一化</span>
+
+logits = np.dot(I_e, T_e.T) * np.exp(t)
+
+loss_i = cross_entropy_loss(logits, labels, axis=<span class="hljs-number">0</span>)
+loss_t = cross_entropy_loss(logits, labels, axis=<span class="hljs-number">1</span>)
+loss   = (loss_i + loss_t) / <span class="hljs-number">2</span>
+</code></pre>
+<p><strong>主要优势</strong></p>
+<ul>
+<li>无需人工标签，直接利用网络数据大规模预训练，利用了丰富的语义作为监督，学习到很多细节的语义特征</li>
+<li>连接图像和文本，可以利用文本来查询图像</li>
+<li>能处理开放词汇和复杂语义，支持“零样本”图像分类、检索等</li>
+<li>通用迁移性极强，下游任务效果优异</li>
+</ul>
+<p><strong>典型应用举例</strong></p>
+<ul>
+<li><strong>零样本分类</strong>（Zero-shot classification）：给定一个未见过的类别描述，CLIP可以判断哪张图片最像该描述
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/clip_infer.png" alt="推理">
+可通过提示工程和集成的方式提高分类准确率</li>
+<li><strong>图像检索</strong>：输入文本描述，检索最相关图片</li>
+</ul>
+<p><strong>可能遇到的问题</strong></p>
+<ul>
+<li>Clip如何选择图像编码器？
+<ul>
+<li>在ResNet不同宽度和深度，ViT不同参数量和patch_size上做实验，其中ViT-L/14（额外在高分辨率336*336图片上训练一个epoch，提升精度）表现最佳</li>
+<li>实验发现在模型深度、宽度、图像分辨率上同时增加计算量，模型提升优于仅在一个维度上增加算力</li>
+</ul>
+</li>
+<li>Clip如何选择文本编码器？
+<ul>
+<li>采用的是Transformer- decoder，63M参数，12层，512宽度，8注意力头，序列最大长度为76，输入格式为[SOS]输入文本[EOS], 输出[EOS]token embeding为句子的表示，文本编码器对Clip性能影响不大。</li>
+</ul>
+</li>
+<li>Clip中温度系数
+<ul>
+<li>CLIP 的温度系数就是对相似度分数（logits）进行缩放，最终影响 softmax 分布的尖锐/平滑程度</li>
+</ul>
+</li>
+</ul>
+<h2 id="moco">MoCo</h2>
+<p><strong>MoCo</strong>（Momentum Contrast）是由Facebook AI Research于2019年提出的自监督对比学习框架，专为解决实例判别下“负样本数量不足”的问题，帮助CNN/视觉模型学习强大的表征能力。</p>
+<p><strong>动机</strong></p>
+<ul>
+<li>对比学习如何构造正负样本对？
+<ul>
+<li>实例判别</li>
+<li>翻译增强</li>
+</ul>
+</li>
+<li>对比学习的难点？-&gt; 负样本尽可能多，负样本尽可能一致
+<ul>
+<li>没有固定label, 随着模型训练，同一个样本生成的特征一直在变</li>
+<li>batch_size太小会带来问题 -&gt; batch_size不能无限制大，可以积累多个batch的负样本，梯度只会更新当前batch的参数，历史负样本队列中的特征是“冻结的”，用来做判别和损失计算，但不被梯度流更新</li>
+<li>不同batch, 模型不同，生成特征不同，负样本没有意义</li>
+</ul>
+</li>
+<li>对比学习的优势？
+<ul>
+<li>自监督学习好特征表示后，下游任务简单微调即可取得很好表现</li>
+</ul>
+</li>
+</ul>
+<p><strong>核心思想</strong>
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/MOCO.png" alt="MOCO架构图"></p>
+<ul>
+<li><strong>队列（Memory Bank）管理大规模负样本。</strong><br>
+MoCo维护一个动态“负样本队列”，用以积累历史batch中的负样本特征。</li>
+<li><strong>Momentum Encoder。</strong><br>
+MoCo使用两个编码器：
+<ul>
+<li><strong>query encoder</strong>：标准参数，随梯度更新；</li>
+<li><strong>key encoder</strong>：参数通过query encoder“动量更新”，即参数缓慢跟随query encoder变化（EMA），保证队列特征的一致性和稳定性。
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/EMA.png" alt="指数移动平均"></li>
+</ul>
+</li>
+</ul>
+<p><strong>流程简述</strong></p>
+<ul>
+<li><strong>每张图片做两种不同数据增强</strong>→形成“query”和“key”。</li>
+<li>用 query encoder 提取“query”特征，用 key encoder 提取“key”特征</li>
+<li>当前 batch 的 key 特征入队，旧特征出队，组成大规模（如4096或65536）负样本库。</li>
+<li>用 query 对应的 key 形成正样本对，队列中其余为负样本对。</li>
+<li>用 InfoNCE loss 拉近正样本、推远负样本。</li>
+</ul>
+<p><strong>损失函数（InfoNCE）</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>loss</mtext><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><msup><mi>k</mi><mo>+</mo></msup><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><msup><mi>k</mi><mo>+</mo></msup><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo><mo>+</mo><munder><mo>∑</mo><msup><mi>k</mi><mo>−</mo></msup></munder><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">m</mi></mrow><mo stretchy="false">(</mo><mi>q</mi><mo separator="true">,</mo><msup><mi>k</mi><mo>−</mo></msup><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text{loss} = -\log \frac{\exp(\mathrm{sim}(q, k^+)/\tau)}{\exp(\mathrm{sim}(q, k^+)/\tau) + \sum_{k^-} \exp(\mathrm{sim}(q, k^-)/\tau)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">loss</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.434em;vertical-align:-0.9857em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4483em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">sim</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6973em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1922em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7027em;"><span style="top:-2.786em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mbin mtight">−</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">sim</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6973em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">−</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">sim</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9857em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span>：query特征</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mo>+</mo></msup></mrow><annotation encoding="application/x-tex">k^+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">+</span></span></span></span></span></span></span></span></span></span></span>：对应key（正样本）</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>k</mi><mo>−</mo></msup></mrow><annotation encoding="application/x-tex">k^-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">−</span></span></span></span></span></span></span></span></span></span></span>：队列中的负样本</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>：温度参数</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>负样本数量可大幅扩展，突破batch size限制</li>
+<li>特征分布更稳定，队列中的负样本由动量编码器产生。</li>
+<li>简单高效，实现和资源消耗友好。</li>
+</ul>
+<h2 id="albef">ALBEF</h2>
+<p><strong>ALBEF</strong>（<strong>A</strong>lign<strong>B</strong>efore <strong>F</strong>use）是2021年提出的一种强大的视觉-语言预训练（VLP）框架，全称为<strong>Align Before Fuse: Vision and Language Representation Learning with Momentum Distillation</strong>。ALBEF通过&quot;先对齐后融合&quot;和动量蒸馏等机制，提升多模态表示学习，主要用于图像-文本多模态理解任务，如图像-文本检索、图像描述生成（captioning）、视觉问答（VQA）等。</p>
+<p><strong>背景</strong></p>
+<p>多模态大模型模型结构，经过实验发现，图像编码器十分重要，文本编码器差别不大，融合编码器也相对重要，最后演化为下述架构。<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/MM-evolve.png" alt="演化架构"></p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/ALBEF.png" alt="ALBEF模型结构"></p>
+<p><strong>核心思想</strong></p>
+<ul>
+<li><strong>对齐再融合（Align Before Fuse）</strong><br>
+ALBEF 首先独立对图像和文本编码进行对齐（alignment），让二者在同一特征空间语义靠近，然后才进行融合（fusion），用于多模态下游任务。</li>
+<li><strong>联合多任务预训练</strong><br>
+同时采用图文对比学习（ITC，Image-Text Contrastive）、图文匹配（ITM，Image-Text Matching）和掩码语言建模（MLM，Masked Language Modeling）三种自监督目标。</li>
+</ul>
+<p><strong>主要组件</strong></p>
+<ul>
+<li><strong>视觉编码器</strong>：采用Vision Transformer（ViT），输入图片分为patch，经过12层Self Attention和前馈网络，得到图片patch特征及[CLS]汇总特征。</li>
+<li><strong>文本编码器</strong>：用Transformer/BERT结构，输入token序列，通过6层Self Attention及前馈模块，输出文本token特征及[CLS]。</li>
+<li><strong>对齐模块</strong>：正样本来自更新的学生模型，负样本来自动量模型队列。【动量蒸馏】</li>
+<li><strong>融合模块</strong>：6层文本self-attention和cross-attention和前馈网络, query为文本，key为图片。进行图像文本配对和掩码文本预测任务。【高相似度但实际不配对的“难负样本”进行图像文本配对-二分类任务】</li>
+</ul>
+<p><strong>损失函数</strong></p>
+<ul>
+<li><strong>ITC（对比损失）</strong>：最大化对应图像-文本对的相似度。</li>
+</ul>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mtext>ITC</mtext></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">(</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="false">(</mo><msup><mover accent="true"><mi>y</mi><mo>^</mo></mover><mrow><mi>i</mi><mn>2</mn><mi>t</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msup><mi>p</mi><mrow><mi>i</mi><mn>2</mn><mi>t</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="false">(</mo><msup><mover accent="true"><mi>y</mi><mo>^</mo></mover><mrow><mi>t</mi><mn>2</mn><mi>i</mi></mrow></msup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msup><mi>p</mi><mrow><mi>t</mi><mn>2</mn><mi>i</mi></mrow></msup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo fence="false" stretchy="true" minsize="1.8em" maxsize="1.8em">)</mo></mrow><annotation encoding="application/x-tex">L_{\text{ITC}} = \frac{1}{2} \Big( \mathrm{cross\_entropy}(\hat{y}^{i2t}(I), p^{i2t}(I)) + \mathrm{cross\_entropy}(\hat{y}^{t2i}(T), p^{t2i}(T)) \Big)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ITC</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mord mathrm" style="margin-right:0.01389em;">cross_entropy</span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.8em;vertical-align:-0.65em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.01389em;">cross_entropy</span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">))</span><span class="mord"><span class="delimsizing size2">)</span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>p</mi><mi>m</mi><mrow><mi>i</mi><mn>2</mn><mi>t</mi></mrow></msubsup><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><msub><mi>T</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><msub><mi>T</mi><mi>m</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">p_m^{i2t}(I) = \frac{\exp(s(I, T_n)/\tau)}{\sum_{m=1}^{M} \exp(s(I, T_m)/\tau)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1247em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.5979em;vertical-align:-1.1709em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.1288em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9812em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1709em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>p</mi><mi>m</mi><mrow><mi>t</mi><mn>2</mn><mi>i</mi></mrow></msubsup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">(</mo><mi>T</mi><mo separator="true">,</mo><msub><mi>I</mi><mi>m</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow><mrow><munderover><mo>∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">(</mo><mi>T</mi><mo separator="true">,</mo><msub><mi>I</mi><mi>m</mi></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">p_m^{t2i}(T) = \frac{\exp(s(T, I_m)/\tau)}{\sum_{m=1}^{M} \exp(s(T, I_m)/\tau)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1247em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.5979em;vertical-align:-1.1709em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.1288em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9812em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.1709em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li><strong>ITM（匹配损失）</strong>：判别输入的图像-文本对是否真的配对。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mrow><mi>i</mi><mi>t</mi><mi>m</mi></mrow></msup></mrow><annotation encoding="application/x-tex">y^{itm}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0191em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span></span></span></span> 表示二分类标签（配对/不配对），<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mrow><mi>i</mi><mi>t</mi><mi>m</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p^{itm}(I, T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0747em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span>为匹配概率。</li>
+</ul>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mtext>ITM</mtext></msub><mo>=</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="false">(</mo><msup><mi>y</mi><mrow><mi>i</mi><mi>t</mi><mi>m</mi></mrow></msup><mo separator="true">,</mo><msup><mi>p</mi><mrow><mi>i</mi><mi>t</mi><mi>m</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L_{\text{ITM}} = \mathrm{cross\_entropy}(y^{itm}, p^{itm}(I, T))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ITM</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1847em;vertical-align:-0.31em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.01389em;">cross_entropy</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">))</span></span></span></span></span></p>
+<ul>
+<li><strong>MLM（掩码语言模型）</strong>：只给部分文本（其他用[mask]），让模型预测被遮盖词。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>y</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup></mrow><annotation encoding="application/x-tex">y^{msk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0435em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></span> 为掩码后原词，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>p</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup><mo stretchy="false">(</mo><msub><mi>T</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">p^{msk}(T_{msk})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 为预测概率分布</li>
+</ul>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>L</mi><mtext>MLM</mtext></msub><mo>=</mo><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">_</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">p</mi><mi mathvariant="normal">y</mi></mrow><mo stretchy="false">(</mo><msup><mi>y</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup><mo separator="true">,</mo><msup><mi>p</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup><mo stretchy="false">(</mo><msub><mi>T</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L_{\text{MLM}} = \mathrm{cross\_entropy}(y^{msk}, p^{msk}(T_{msk}))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">MLM</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2091em;vertical-align:-0.31em;"></span><span class="mord"><span class="mord mathrm" style="margin-right:0.01389em;">cross_entropy</span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">))</span></span></span></span></span></p>
+<p>其中 。</p>
+<p><strong>优点与应用</strong></p>
+<ul>
+<li>有效提升多模态理解和生成，性能优于绝大多数传统VLP框架。</li>
+<li>适用于图文检索、图文匹配、VQA等多种下游任务。</li>
+<li>为CLIP、BLIP等一系列后续SOTA多模态大模型奠定基础。</li>
+</ul>
+<p><strong>可能遇到的问题</strong></p>
+<ul>
+<li>
+<p>为什么要用软标签？</p>
+<ul>
+<li><strong>one-hot标签“太绝对”</strong>：只用one-hot标签（即匹配对为1，其他全为0），模型学到的信息非常“干脆”，没有对样本间模糊关联和不确定性的敏感度。</li>
+<li><strong>软标签（分布式标签）</strong>：
+<ul>
+<li>ALBEF通过动量模型（momentum model）在对比损失构造时，<strong>不只用one-hot标签进行监督</strong>，还用动量模型产生的分布（即teacher的输出概率分布），作为学生模型学习目标。</li>
+<li>换句话说，让学生模型的预测分布尽量“对齐”动量模型的分布，不要求每个pair是完全确定的1和0。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>KL散度加在哪里？</p>
+<ul>
+<li>在KL散度里，q是目标分布（老师/希望拟合对象），p是模型分布（学生/当前输出），优化时让p逼近q。(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">\alpha=0.4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.4</span></span></span></span>)</li>
+<li>ITC loss<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>L</mi><mrow><mi>I</mi><mi>T</mi><mi>C</mi></mrow><mrow><mi>M</mi><mi>o</mi><mi>D</mi></mrow></msubsup><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∗</mo><msub><mi>L</mi><mrow><mi>I</mi><mi>T</mi><mi>C</mi></mrow></msub><mo>+</mo><mfrac><mi>α</mi><mn>2</mn></mfrac><mrow><mo fence="true">[</mo><mi>K</mi><mi>L</mi><mrow><mo fence="true">(</mo><msup><mi>q</mi><mrow><mi>i</mi><mn>2</mn><mi>t</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∥</mi><msup><mi>p</mi><mrow><mi>i</mi><mn>2</mn><mi>t</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo>+</mo><mi>K</mi><mi>L</mi><mrow><mo fence="true">(</mo><msup><mi>q</mi><mrow><mi>t</mi><mn>2</mn><mi>i</mi></mrow></msup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∥</mi><msup><mi>p</mi><mrow><mi>t</mi><mn>2</mn><mi>i</mi></mrow></msup><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">L^{MoD}_{ITC} = (1 - \alpha) * L_{ITC} + \frac{\alpha}{2} \left[ KL\left(q^{i2t}(I) \| p^{i2t}(I)\right) + KL\left(q^{t2i}(T) \| p^{t2i}(T)\right) \right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">TC</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">oD</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">TC</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.7936em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">)</span><span class="mord">∥</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">t</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mord">∥</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span></span></span></span></span></p>
+</li>
+<li>MLM loss<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mi>L</mi><mrow><mi>M</mi><mi>L</mi><mi>M</mi></mrow><mrow><mi>M</mi><mi>o</mi><mi>D</mi></mrow></msubsup><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∗</mo><msub><mi>L</mi><mrow><mi>M</mi><mi>L</mi><mi>M</mi></mrow></msub><mo>+</mo><mi>α</mi><mo>∗</mo><mi>K</mi><mi>L</mi><mrow><mo fence="true">(</mo><msup><mi>q</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><msub><mi>T</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">∥</mi><msup><mi>p</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msup><mo stretchy="false">(</mo><mi>I</mi><mo separator="true">,</mo><msub><mi>T</mi><mrow><mi>m</mi><mi>s</mi><mi>k</mi></mrow></msub><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">L^{MoD}_{MLM} = (1 - \alpha) * L_{MLM} + \alpha * KL\left(q^{msk}(I, T_{msk}) \| p^{msk}(I, T_{msk})\right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1383em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight">L</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">oD</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span><span class="mord mathnormal mtight">L</span><span class="mord mathnormal mtight" style="margin-right:0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4653em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2491em;vertical-align:-0.35em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">∥</span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="blip">BLIP</h2>
+<p><strong>BLIP</strong> （<strong>B</strong>ootstrapped <strong>L</strong>anguage-<strong>I</strong>mage <strong>P</strong>retraining）是一种由 Salesforce 研究院在 2022 年提出的<strong>多模态预训练框架</strong>。此前 CLIP等方法要用于判别任务（如检索），而BLIP是既能判别、又能生成的通用多模态视觉语言模型，并能有效利用无配对图片数据。</p>
+<p><strong>改进点</strong>：</p>
+<ul>
+<li>训练一个模型可以做检索也可以做生成：多任务预训练框架</li>
+<li>解决网络收集图文对数据中的噪声问题：Bootstrapping伪标签生成（自引导数据增强）</li>
+</ul>
+<p><strong>结构设计</strong></p>
+<p>BLIP 通过共享文本编码器参数，增加起始文本token[CLS][Encode][Decode]区分不同任务。</p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP.png" alt="BLIP架构"></p>
+<ul>
+<li>
+<p>图像编码器（Image Encoder）</p>
+<ul>
+<li>输入原始图片，送入ViT，经过多层Self Attention和Feed Forward（前馈网络），输出图像特征</li>
+</ul>
+</li>
+<li>
+<p>单模态文本编码器（Text Encoder）</p>
+<ul>
+<li>输入为自然语言文本，&quot;[CLS]&quot;为分类起始token，经过多层self-attention和feed forward，输出文本特征</li>
+<li>进行判别任务：“图片-文本对比对齐”（ITC）</li>
+</ul>
+</li>
+<li>
+<p>多模态文本编码器（Image-grounded Text Encoder）</p>
+<ul>
+<li>输入是文本，&quot;[Encode]&quot;为编码起始token，通过多层self-attention和Cross Attention和feed forward，把图像特征融入到文本token的注意力权重中。</li>
+<li>交叉注意力模块以图像特征为“键值”，让文本能感知图像内容，形成跨模态深层语义融合。</li>
+<li>进行判别任务：图像文本匹配（ITM）</li>
+</ul>
+</li>
+<li>
+<p>多模态文本解码器（Image-grounded Text Decoder）</p>
+<ul>
+<li>输入是文本，&quot;[Decode]&quot;为编码起始token，通过多层casual self-attention和Cross Attention和feed forward，把图像特征融入到文本token的注意力权重中。</li>
+<li>用于生成任务：图像文本生成。</li>
+</ul>
+</li>
+</ul>
+<p><strong>自引导数据增强</strong></p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/boostrap.png" alt="标题生成+标题过滤"></p>
+<p>当然可以！下面我将结合你的图，对BLIP中“自引导数据增强”（Bootstrapped Data Augmentation）的流程、关键算法细节，进行详细讲解。</p>
+<ul>
+<li>
+<p><strong>初始状态 —— 标注与非标注数据共用</strong></p>
+<ul>
+<li>数据分为两类：
+<ul>
+<li>人工标注的图文对 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mi>h</mi></msub><mo>=</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><msub><mi>I</mi><mi>h</mi></msub><mo separator="true">,</mo><msub><mi>T</mi><mi>h</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">D_h = \{(I_h,T_h)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)}</span></span></span></span>（比如COCO/Flickr30K等高质量人类标注）</li>
+<li>大量网页图片 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>w</mi></msub></mrow><annotation encoding="application/x-tex">I_w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（无配对文本）和网页文本 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>w</mi></msub></mrow><annotation encoding="application/x-tex">T_w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（高噪声、海量，未必为图片真实描述）</li>
+</ul>
+</li>
+<li>仅有少量人工标注，与大规模未标注/弱标注数据混合，无法充分训练大模型。</li>
+<li>初次预训练采用“多模态编码-解码混合结构”（ME-D），联合这些数据进行基础学习。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据集自引导扩充流程（Dataset Bootstrapping）</strong></p>
+<ul>
+<li>Captioner：基于上一轮的BLIP-多模态解码器，通过精标数据微调，输入无文本描述的图片<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>w</mi></msub></mrow><annotation encoding="application/x-tex">I_w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，得到图文对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>I</mi><mi>w</mi></msub><mo separator="true">,</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(I_w, T_s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</li>
+<li>Filter：基于上一轮的BLIP-多模态编码器，通过精标数据微调，输入Captioner生成的图文对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>I</mi><mi>w</mi></msub><mo separator="true">,</mo><msub><mi>T</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(I_w, T_s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>和弱监督的原始图文对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>I</mi><mi>w</mi></msub><mo separator="true">,</mo><msub><mi>T</mi><mi>w</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(I_w, T_w)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, 过滤得到高质量合成和网页图文对。</li>
+</ul>
+</li>
+<li>
+<p><strong>多轮循环、自我增强</strong></p>
+<ul>
+<li>经过“生成+过滤”后，新产生的高质量筛选图文对会和原有人类标注数据<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mo stretchy="false">(</mo><msub><mi>I</mi><mi>h</mi></msub><mo separator="true">,</mo><msub><mi>T</mi><mi>h</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{(I_h, T_h)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)}</span></span></span></span>混合，作为新一轮训练数据<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span>，进一步更新模型。</li>
+</ul>
+</li>
+</ul>
+<p><strong>优势</strong></p>
+<ul>
+<li><strong>无限扩展数据规模</strong>：突破真实人工标注限制，可在开放网络建海量训练样本。</li>
+<li><strong>降低噪声影响，提升泛化能力</strong>：通过“生成+筛选”双重机制，确保数据多样性又避免质量劣化。</li>
+<li><strong>自组织数据流</strong>：模型自身能力提升推动数据增强，动态Bootstrapping，生态式增长。</li>
+<li>-<strong>通用能力强</strong>：多任务学习，让模型在描述生成、检索、问答等多模态任务表现都很优越。</li>
+</ul>
+<p><strong>可能遇到的问题</strong></p>
+<ul>
+<li>BLIP为什么要使用label-smoothing?
+<ul>
+<li>原理是在训练时，原本的one-hot标签（某一类概率为1，其余为0），被“平滑”为目标类别为0.9、非目标类别为0.1/(N-1)（N为类别数）。</li>
+<li>为了提升模型鲁棒性和泛化能力，尤其是在伪标签较多、数据质量参差不齐的自引导预训练场景，将训练目标分布“软化”，有效防止过拟合、过度自信和训练不稳定问题。</li>
+</ul>
+</li>
+<li>为什么captioner和filter不共享参数？
+<ul>
+<li>由于共享参数常会使判别器变得“过于宽容”或生成器“过于保守”，所以为了防止目标冲突，提升生成和判别子模块各自的专业能力，两者不共享参数。</li>
+</ul>
+</li>
+<li>为什么每次生成新数据后，用全新随机初始化模型重新训练，而不是把老模型参数继续finetune？
+<ul>
+<li>自训练（self-training）中，一直用同一个模型finetune训练后会产生“自循环陷阱”（self-training loop trap）。</li>
+<li>避免错误与偏见累积，增强模型对新扩展数据的适应能力，提升伪标签利用效率，实现更健壮、泛化更强的多模态表征。</li>
+</ul>
+</li>
+<li>生成的随机性影响？
+<ul>
+<li>Beam Search：宽度固定（beam size），优先选概率最高的路径。输出更确定、模式化，重复度高但合理性强。</li>
+<li>Nucleus Sampling（Top-p）：在累计概率达到p阈值的候选集合里采样下一个词，带来更多多样性和偶然性但可能出现噪声。【caption使用这个更好】</li>
+</ul>
+</li>
+</ul>
+<h2 id="flamingo">Flamingo</h2>
+<p>Flamingo 是 DeepMind 于 2022 年推出的创新性多模态大模型。Flamingo在大语言模型（LLM）/大视觉模型基础上，通过引入灵活插入图片特征的专用模块，实现高效的视觉-文本“少样本”推理。</p>
+<p><strong>动机</strong></p>
+<ul>
+<li>多模态few-shot learning模型</li>
+<li>利用已经训练好的视觉模型和大语言模型</li>
+</ul>
+<p><strong>创新点</strong></p>
+<ul>
+<li>桥接强大的预训练视觉和文本大模型</li>
+<li>处理任意图片、文本、视频混杂数据</li>
+</ul>
+<p><strong>输入输出</strong></p>
+<ul>
+<li>
+<p>接受任意模态混排的序列作为输入，文本作为输出</p>
+</li>
+<li>
+<p>prompt里可以通过样例，进行VQA、Caption等任务。</p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/flamingo_few_shot.png" alt="few-shot/zero-shot"></p>
+</li>
+</ul>
+<p><strong>训练数据</strong></p>
+<ul>
+<li>图文混排数据（互联网网页），长度256，最多5个图片</li>
+<li>图像文本对</li>
+<li>视频文本对</li>
+</ul>
+<p><strong>模型结构</strong></p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/flamingo.png" alt="Flamingo模型架构图"></p>
+<ul>
+<li><strong>输入</strong>: 交错的图片和文本序列，<image>为文本中图片占位token.</li>
+<li><strong>冻结视觉编码器 + perceiver resampler</strong>: 图片分流经过视觉编码与resampler压缩成视觉token。</li>
+<li><strong>编码</strong>：
+<ul>
+<li><strong>多层多模态融合层</strong>：将视觉 token 与文本 token 拼接灌入“Gated Cross-Attention Block”：文本每一层都可以选择性地吸收视觉 token 信息，通过门控机制控制图片信息注入量。 LM block进一步编码。</li>
+<li><strong>语言解码器（基座 LLM）</strong>：最终自回归生成目标文本，支持开放式回答、描述生成或多轮对话。</li>
+</ul>
+</li>
+</ul>
+<p><strong>提取视觉特征</strong></p>
+<ul>
+<li>
+<p>图片：从ResNet来的特征图展平，输出：固定数量（如64个）视觉token。它是一组可训练token（初始化为64个向量），通过N层Feed Forward、Cross Attention模块反复吸收、融合图片特征。
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/img_pr.png" width="450" height="350"></p>
+</li>
+<li>
+<p>视频：每帧都经过ResNet，得到与单张图片特征图。加时间编码后展平，其他同image操作。</p>
+  <img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/vedio_pr.png" width="400" height="450">
+</li>
+</ul>
+<p><strong>Gated Xattn-Dense</strong>：</p>
+<ul>
+<li>文本和图片通过N层 可训练的masked-gated-attention和ffn + 冻结的self-attention和ffn编码</li>
+<li>这里的mask是指，做交叉注意力时文本只能与最近的一张图做交叉注意力</li>
+<li>由于后续有self-attention,所以文本可以看到每张图
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/gated-xattn-dense.png" alt="门控交叉注意力"></li>
+</ul>
+<p><strong>优势</strong></p>
+<ul>
+<li><strong>极强的任务泛化与适应性</strong><br>
+只需少量样例或prompt即可适配新任务，不用全量微调。</li>
+<li><strong>支持灵活多模态上下文结构</strong><br>
+能处理任意长度文本、若干图片、多轮问答等复合输入情境。</li>
+<li><strong>高SOTA性能</strong><br>
+多个视觉问答、图片推理与多模态理解任务创下新SOTA（见OK-VQA等公开榜）。</li>
+<li><strong>模块插拔灵活</strong><br>
+便于结合不同LLM、视觉模型和扩展至其它多模态场景。</li>
+</ul>
+<p><strong>应用</strong></p>
+<ul>
+<li>视觉问答（VQA, Science QA等）</li>
+<li>跨模态推理、多轮对话</li>
+<li>多模态少样本任务设定（Few-shot Learning）</li>
+</ul>
+<p><strong>可能存在的问题</strong></p>
+<ul>
+<li>为什么要&quot;Resampler&quot;?
+<ul>
+<li>每张图片提取出来的patch数量可能不同，模型难以直接对接文本等其它模态。</li>
+</ul>
+</li>
+<li>什么是tanh gated cross-attention？
+<ul>
+<li>在常规 cross-attention 的基础上，加了一个“门控机制”（即 gate）。gate 通常是一个 learnable参数（向量），对 cross-attention 输出结果做缩放/抑制。tanh gate 是指对该参数做 tanh 激活，值域在 (-1, 1)，防止门控值无限扩张，增加非线性控制。</li>
+</ul>
+</li>
+<li>为什么要加入tanh gated cross-attention？
+<ul>
+<li>加 Gate 可以让 cross-attention 层输出不仅靠内容驱动，还能由模型自动决定信息注入量（即完全不注入也是可以的）。</li>
+<li>在 Flamingo 架构中，视觉编码器和语言主干是预训练并冻结的，只有 cross-attention 和 gate 模块是新初始化的。将 gate 初始化为 0，可以防止训练初期未学习好的 cross-attention 输出噪声，扰乱文本生成主干，保证模型先保持语言能力，随后再逐步有序地融合视觉信息，提高训练稳定性和效果。</li>
+</ul>
+</li>
+<li>tanh gated cross-attention 和 llm层数对比？
+<ul>
+<li>可以每隔3/7层添加</li>
+</ul>
+</li>
+<li>loss函数？
+<ul>
+<li>自回归模型！！！所以Flamingo 架构图里 LLM block 标注 “Self-Attention”，实际上它指的是 “masked self-attention” ，即解码器专用的自注意力。</li>
+</ul>
+</li>
+</ul>
+<h2 id="blip-2">BLIP-2</h2>
+<p>BLIP-2 是由 Salesforce 等团队在 2023 年提出的多模态视觉语言预训练框架，通过一个桥接模型连接冻结的视觉编码器和大语言模型，通过两阶段训练实现强大的视觉理解与生成能力。</p>
+<p><strong>动机</strong></p>
+<ul>
+<li>利用预训练的视觉大模型和语言大模型</li>
+<li>做生成任务前需要对齐和融合</li>
+</ul>
+<p><strong>Q-former架构</strong></p>
+<ul>
+<li>Image Transformer 和 Text Transformer 共享self-attention参数，除cross-attention随机初始化外，其他均来自预训练的bert参数。</li>
+<li>Image Transformer输入为32个可训练的token，进行视觉特征提取。
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP-2.png" width="600" height="350"></li>
+</ul>
+<p><strong>两阶段训练</strong></p>
+<ul>
+<li>第一阶段：视觉语言表示学习 ITC
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP-2-ITC.png" width="650" height="300">
+<ul>
+<li>文本加[CLS]token, 最后输出作为文本表征，和图像侧32个token分别求最大相似度作为该组相似度</li>
+<li>在self-attention部分，图文无交互</li>
+<li>由于参数量很小，所以batch_size很大，为2320，不需要动量模型</li>
+</ul>
+</li>
+<li>第一阶段：视觉语言表示学习 ITM
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP-2-ITM.png" width="650" height="300">
+<ul>
+<li>图像文本匹配时，自注意力层，图像和文本都是互相可见的</li>
+<li>对32个token都做二分类，取均值作为最后的概率</li>
+</ul>
+</li>
+<li>第一阶段：视觉语言表示学习 ITG
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP-2-ITG.png" width="650" height="300">
+<ul>
+<li>图像文本匹配时，自注意力层，图像看不到文本，文本能看到图像和在它之前的文本</li>
+<li>文本加[DEC]Token表示生成任务</li>
+<li>最上面的线没有，这应该是共享attention的类单塔</li>
+</ul>
+</li>
+<li>第二阶段：基于图像的语言生成
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/BLIP-2-stage-2.png" width="650" height="270"></li>
+</ul>
+<p><strong>训练细节</strong></p>
+<ul>
+<li>同BLIP，同时经过BLIP生成过滤</li>
+<li>图像编码器用VIT，删除最后一层，用倒数第一层</li>
+</ul>
+<p><strong>技术优势</strong></p>
+<ol>
+<li><strong>极低算力/高效训练</strong><br>
+只需训练桥接模块Q-Former，其余部分均可冻结，资源消耗极低，各类视觉/语言模型易插易换。</li>
+<li><strong>泛化性与灵活性突出</strong><br>
+支持多种视觉backbone和LLM（主流ViT、LLaMA、OPT等），下游任务迁移快、适应新任务能力强。</li>
+</ol>
+<p><strong>可能存在的问题</strong></p>
+<ul>
+<li>为什么BLIP-2:图像编码器用VIT，删除最后一层，用倒数第一层
+<ul>
+<li>为了避开“分类头”对特征空间的适配性增强，保留更丰富、更通用的视觉信息，以便Q-Former更好地抽取和对齐多模态语义，从而提升多模态理解和生成的表现。</li>
+</ul>
+</li>
+</ul>
+<h2 id="llava">LLaVA</h2>
+<p>LLaVA（Large Language and Vision Assistant）是2023年推出的开源多模态大模型，由 UC San Diego 等团队开发.将强大的开源 LLaMA 类语言模型（LLM）与强视觉编码器进行高效融合，得到可直接用于多模态问答与交互的大模型。</p>
+<p><strong>训练数据</strong>：LLaVA的训练数据主要为图像-文本对问答格式，用于多模态指令微调；根据纯文本信息生成问答对。</p>
+<p><strong>模型架构</strong></p>
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/Llava.png" width="400" height="200">
+<p><strong>训练方式</strong></p>
+<ul>
+<li><strong>阶段1:特征对齐的预训练</strong>：冻结ViT和LLM，仅训练线性投影层，执行简单描述图片问答任务。</li>
+<li><strong>阶段2:端到端微调</strong>：冻结视觉编码器，训练线性投影层和LLM，进行指令跟随。</li>
+</ul>
+<h2 id="llava-15">LLaVA-1.5</h2>
+<p>LLaVA-1.5 是 LLaVA 系列多模态大模型的升级版本，于2023年下半年发布</p>
+<p><strong>改动</strong>：</p>
+<ul>
+<li>线性投影层变为两层</li>
+<li>增加不同类型训练数据和prompt类型</li>
+<li>提升图片分辨率：在ViT-L-336px基础上，切分图片，分块编码展平，拼接resize之后图片编码
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/Llava-resize.png" width="500" height="180">
+<strong>特点</strong></li>
+<li>训练数据还可以减少</li>
+<li>图片分辨率可以大大缓解多模态幻觉问题</li>
+<li>多模态大模型有组合分项能力，语言大模型有长文本能力时，训练多模态大模型图片+短文本，一样可以外推至长文本。</li>
+</ul>
+<h2 id="llava-next">LLaVA-NeXT</h2>
+<p>LLaVA-NeXT 是 LLaVA 系列多模态大模型的升级版本，于2024年发布</p>
+<ul>
+<li>进一步提升分辨率</li>
+<li>高质量数据</li>
+<li>更大LLM</li>
+<li>效果接近GPT-4V</li>
+</ul>
+<h2 id="llama32-vision">LLaMA3.2-Vision</h2>
+<p>LLaMA-3 Vision是Meta在2024年首次推出的具备视觉与文本双模输入能力的LLaMA-3家族成员</p>
+<p><strong>图像预处理</strong></p>
+<ul>
+<li>
+<p>Tile（分块）：一个 tile560*560，最多4个tile, 缩放图片到缩放比最小的tile</p>
+</li>
+<li>
+<p>padding: 剩余位置填充0</p>
+</li>
+<li>
+<p>固定维度feature + mask: 4<em>3</em>560*560, mask取决于所占tile数目</p>
+<p><img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/tile-type.png" width="350" height="250">  <img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/tile-feature.png" width="350" height="250"></p>
+</li>
+</ul>
+<p><strong>视觉编码器</strong></p>
+<ul>
+<li>
+<p>ViT: 14<em>14 patch切分，维度1280，展平得到 4</em>1600*1280</p>
+</li>
+<li>
+<p>位置编码：增加tile位置编码，4个tile，8种可学习的位置编码</p>
+</li>
+<li>
+<p>增加一个[cls]token</p>
+</li>
+<li>
+<p>增加patch位置编码</p>
+</li>
+<li>
+<p>过self-attention和ffn, 再过gated版本</p>
+</li>
+<li>
+<p>global + 抽取局部emb，汇总成最后输出结果</p>
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/Llama-vision-encoder.png" width="250" height="250">
+</li>
+</ul>
+<p><strong>文本序列</strong>：输入文本图片文本，会自动生成<image>占位符</p>
+<p><strong>多模态融合</strong>：视觉编码器输出后，通过线形映射，成为cross-attention key value，采用decoder llm + gated-cross-attention + lm head生成最后文本描述
+【mask只能看到最近的前一张图，但在融合过程中，可以看到前面所有图】</p>
+<img src="file:////Users/matingyan/Desktop/my/intex_pic/qingtou/fig/Llama-vision.png" width="450" height="200">
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
